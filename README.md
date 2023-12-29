@@ -27,6 +27,9 @@ If you find this code useful in your research, please cite:
 
 You can also put a star :star:, if the code is useful to you.
 
+## OS etc...
+- Ubuntu 22.04.3 
+- nvcc version 12.1 
 
 ## Installation :construction_worker:
 
@@ -34,37 +37,56 @@ You can also put a star :star:, if the code is useful to you.
 
 ### 1. Create conda environment
 
-<details><summary>Instructions</summary>
+<details><summary>Instructions (updated)</summary>
 
-```
-conda create python=3.9 --name temos
+#### All pre-requisites are in the file `environment.yml`.
+Run:
+```bash
+conda env create -f environment.yml 
 conda activate temos
 ```
 
-Install [PyTorch 1.10](https://pytorch.org/) inside the conda environment, and install the following packages:
-```bash
-pip install pytorch_lightning --upgrade
-pip install torchmetrics==0.7
-pip install hydra-core --upgrade
-pip install hydra_colorlog --upgrade
-pip install shortuuid
-pip install rich
-pip install pandas
-pip install transformers
-pip install psutil
-pip install einops
-```
 The code was tested on Python 3.9.7 and PyTorch 1.10.0.
 
 </details>
 
 ### 2. Download the datasets
 
-<details><summary>Instructions</summary>
+<details><summary>Instructions (updated)</summary>
 
 #### KIT Motion-Language dataset
 **Be sure to read and follow their license agreements, and cite accordingly.**
 
+1. Submodule repo (already done)
+```bash 
+git submodule add git@github.com:wannaio/Complextext2animation.git
+```
+2. Create the dataset folder (ignored by git)
+```bash
+cd Complextext2animation
+mkdir dataset
+mkdir dataset/kit-mocap
+cd dataset
+```
+3. Download [KIT](https://motion-annotation.humanoids.kit.edu/dataset/) dataset (3.9 GB)
+```bash 
+wget https://motion-annotation.humanoids.kit.edu/downloads/4/ 
+unzip index.html -d kit-mocap
+rm -r index.html
+cd ..
+```
+4. Run the code (takes a while)
+```bash 
+python3 src/data.py
+```
+5. Move the necessary data to TEMOS, remove rest (many GBs)
+```bash
+cd ..
+python3 move_kit.py
+rm -r Complextext2animation/dataset/kit-mocap
+```
+
+### Original instructions:
 Use the code from [Ghosh et al.](https://github.com/anindita127/Complextext2animation) to download and prepare the kit dataset (extraction of xyz joints coodinates data from axis-angle Master Motor Map). Move or copy all the files which ends with "_meta.json", "_annotations.json" and "_fke.csv" inside the ``datasets/kit`` folder.
 "
 These motions are process by the Master Motor Map (MMM) framework. To be able to generate motions with SMPL body model, please look at the next section.
@@ -91,12 +113,12 @@ cd ../../
 
 ### 3. Download text model dependencies
 
-<details><summary>Instructions</summary>
+<details><summary>Instructions (updated) </summary>
 
 #### Download distilbert from __Hugging Face__
 ```bash
 cd deps/
-git lfs install
+sudo apt-get install git-lfs
 git clone https://huggingface.co/distilbert-base-uncased
 cd ..
 ```

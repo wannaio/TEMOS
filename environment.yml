@@ -1,0 +1,40 @@
+name: temos
+channels:
+    - pytorch
+    - conda-forge
+    - defaults
+dependencies:
+    - python=3.9
+    - pytorch==1.10.1
+    - cudatoolkit=11.3
+    - ffmpeg
+    - pip
+    - pip:
+        - pytorch_lightning
+        - torchmetrics==0.7
+        - hydra-core
+        - hydra_colorlog
+        - shortuuid
+        - rich
+        - pandas
+        - transformers
+        - psutil
+        - einops
+        - wget
+        - matplotlib
+        - scipy
+        - scikit-learn
+        - seaborn
+        - tqdm
+        - gensim
+        - ipykernel
+        - protobuf
+        - regex
+        - slurmpy
+        - wordsegment
+        - prettytable
+        - argunparse
+        - tensorboard
+        - nltk
+        - opencv-python
+
