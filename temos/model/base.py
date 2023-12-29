@@ -47,13 +47,16 @@ class BaseModel(LightningModule):
                      "step": float(self.trainer.current_epoch)})
         self.log_dict(dico)
 
-    def training_epoch_end(self, outputs):
+    def on_train_epoch_end(self):
+        outputs = self.trainer.callback_metrics
         return self.allsplit_epoch_end("train", outputs)
 
-    def validation_epoch_end(self, outputs):
+    def on_validation_epoch_end(self):
+        outputs = self.trainer.callback_metrics
         return self.allsplit_epoch_end("val", outputs)
 
-    def test_epoch_end(self, outputs):
+    def on_test_epoch_end(self):
+        outputs = self.trainer.callback_metrics
         return self.allsplit_epoch_end("test", outputs)
 
     def configure_optimizers(self):

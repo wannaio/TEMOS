@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 from .wandb import WandbLogger
 from pytorch_lightning.loggers import TensorBoardLogger
-from pytorch_lightning.loggers.base import DummyLogger
+from pytorch_lightning.loggers.logger import DummyLogger  # ptl 2.1.3
 from hydra.utils import to_absolute_path
 from omegaconf import DictConfig, OmegaConf
 from .tools import cfg_to_flatten_config
